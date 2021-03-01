@@ -1,0 +1,27 @@
+name: Sync labels
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Repository (e.g. `user/repo`)'
+        required: true
+      labelsFileName:
+        description: 'Labels file name (e.g. `default`)'
+        required: true
+      prune:
+        description: 'Delete not listed labels'
+        required: true
+        default: 'false'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: micnncim/action-label-syncer@v1
+        with:
+          manifest: labels/${{ github.event.inputs.labelsFileName }}.yml
+          repository: ${{ github.event.inputs.repository }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          prune: ${{ github.event.inputs.prune }}
