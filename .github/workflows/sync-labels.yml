@@ -23,5 +23,5 @@ jobs:
         with:
           manifest: labels/${{ github.event.inputs.labelsFileName }}.yml
           repository: ${{ github.event.inputs.repository }}
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           prune: ${{ github.event.inputs.prune }}
